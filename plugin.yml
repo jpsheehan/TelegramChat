@@ -1,7 +1,7 @@
-name: TelegramChat
+name: TelegramChat17
 main: de.Linus122.TelegramChat.Main
-version: 1.0
-authors: [Linus122]
+version: 1.1
+authors: [Linus122, JPSheehan]
 description: Brings minecraft chat to Telegram!
 commands:
    telegram:
