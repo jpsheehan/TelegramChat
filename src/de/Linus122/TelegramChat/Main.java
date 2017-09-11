@@ -160,10 +160,23 @@ public class Main extends JavaPlugin implements Listener{
 		if(Telegram.connected){
 			Chat chat = new Chat();
 			chat.parse_mode = "Markdown";
-			String safe_player_name = e.getPlayer().getName().replaceAll("_", "\\\\_");
-			String safe_message = e.getMessage().replaceAll("§.", "").replaceAll("_", " \u0332 ");
+			String safe_player_name = sanitizePlayerName(e.getPlayer().getName());
+			String safe_message = sanitizeMessage(e.getMessage().replaceAll("§.", ""));
 			chat.text = safe_player_name + ": _" + safe_message + "_";
 			Telegram.sendAll(chat);
 		}
+	}
+	
+	// Replaces all underscores in a player's name with \\_ which is parsed by Markdown as an escaped underscore
+	private String sanitizePlayerName(String name)
+	{
+		return name.replaceAll("_", "\\\\_");
+	}
+	
+	// Replaces all underscores in a message with a fake underscore surrounded by two spaces as the Markdown
+	// engine has a bug where an escaped underscore cannot come between two underscores (indicating italics)
+	private String sanitizeMessage(String message)
+	{
+		return message.replaceAll("_", " \u0332 ");
 	}
 }
