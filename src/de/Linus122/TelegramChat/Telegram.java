@@ -141,7 +141,6 @@ public class Telegram {
 			connection.setUseCaches(false);
 			connection.setRequestProperty("Content-Type", "application/json; ; Charset=UTF-8");
 			connection.setRequestProperty("Content-Length", String.valueOf(body.length()));
-
 			
 			DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
 			BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(wr, "UTF-8"));

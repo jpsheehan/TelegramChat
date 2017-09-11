@@ -31,7 +31,7 @@ import de.Linus122.TelegramComponents.Chat;
 
 
 public class Main extends JavaPlugin implements Listener{
-	public static File datad = new File("plugins/TelegramChat/data.json");
+	public static File datad = new File("plugins/TelegramChat17/data.json");
 	public static FileConfiguration cfg;
 	
 	public static Data data = new Data();
@@ -44,7 +44,7 @@ public class Main extends JavaPlugin implements Listener{
 		Bukkit.getPluginCommand("telegram").setExecutor(new TelegramCmd());
 		Bukkit.getPluginCommand("linktelegram").setExecutor(new LinkTelegramCmd());
 		Bukkit.getPluginManager().registerEvents(this, this);
-		File dir = new File("plugins/TelegramChat/");
+		File dir = new File("plugins/TelegramChat17/");
 		dir.mkdir();
 		data = new Data();
 		if(datad.exists()){
@@ -160,8 +160,9 @@ public class Main extends JavaPlugin implements Listener{
 		if(Telegram.connected){
 			Chat chat = new Chat();
 			chat.parse_mode = "Markdown";
-			String safe_player_name = e.getPlayer().getName().replaceAll("_", "\\_");
-			chat.text = safe_player_name + ": _" + e.getMessage().replaceAll("§.", "") + "_";
+			String safe_player_name = e.getPlayer().getName().replaceAll("_", "\\\\_");
+			String safe_message = e.getMessage().replaceAll("§.", "").replaceAll("_", " \u0332 ");
+			chat.text = safe_player_name + ": _" + safe_message + "_";
 			Telegram.sendAll(chat);
 		}
 	}
